@@ -35,7 +35,7 @@ function isAuthenticated(req, res, next) {
 }
 
 /** Kobler til SQLite-database */
-const db = new sqlite3.Database("minNyeDatabase.db", (err) => {
+const db = new sqlite3.Database("datamaskin.db", (err) => {
     if (err) {
         console.error("Feil ved tilkobling til database:", err.message);
     } else {
@@ -43,9 +43,27 @@ const db = new sqlite3.Database("minNyeDatabase.db", (err) => {
     }
 });
 
+// Opprett tabellen Enhet hvis den ikke finnes
+const createEnhetTable = `CREATE TABLE IF NOT EXISTS Enhet (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    modell TEXT NOT NULL,
+    batteri_helse TEXT NOT NULL,
+    serienummer TEXT NOT NULL,
+    status TEXT NOT NULL
+);`;
+db.run(createEnhetTable, (err) => {
+    if (err) {
+        console.error("Feil ved oppretting av Enhet-tabell:", err.message);
+    }
+});
+
 /** Rute: Viser forsiden (kun for autentiserte brukere) */
 app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "view", "index.html"));
+});
+
+app.get("/registrer", (req, res) => {
+    res.sendFile(path.join(__dirname, "view", "registrer-enhet.html"));
 });
 
 /** Rute: Viser innloggingssiden */
@@ -59,8 +77,37 @@ app.get("/ny-bruker", (req, res) => {
 });
 
 /** Rute: Viser privat side (kun for autentiserte brukere) */
-app.get("/privat", isAuthenticated, (req, res) => {
-    res.sendFile(path.join(__dirname, "view", "privat.html"));
+app.get("/privat", (req, res) => {
+    db.all("SELECT * FROM Enhet", [], (err, rows) => {
+        if (err) {
+            console.error("Databasefeil:", err.message);
+            return res.status(500).send("Databasefeil: " + err.message);
+        }
+        res.render("privat", { enheter: rows });
+    });
+});
+
+// Oppdater enhet
+app.post("/oppdater-enhet", (req, res) => {
+    const { id, modell, batteri_helse, serienummer, status } = req.body;
+    const sql = `UPDATE Enhet SET modell=?, batteri_helse=?, serienummer=?, status=? WHERE id=?`;
+    db.run(sql, [modell, batteri_helse, serienummer, status, id], function (err) {
+        if (err) {
+            console.error("Databasefeil:", err.message);
+        }
+        res.redirect("/privat");
+    });
+});
+
+// Slett enhet
+app.post("/slett-enhet", (req, res) => {
+    const { id } = req.body;
+    db.run("DELETE FROM Enhet WHERE id=?", [id], function (err) {
+        if (err) {
+            console.error("Databasefeil:", err.message);
+        }
+        res.redirect("/privat");
+    });
 });
 
 /** Rute: Logger ut brukeren og avslutter sesjonen */
@@ -118,6 +165,31 @@ app.post("/ny-bruker", async (req, res) => {
         res.redirect("/?melding=Bruker opprettet");
     });
 });
+
+/**
+ * Rute: Håndterer registrering av enhet
+ * Lagrer enheten i databasen
+ */
+app.post("/registrer-enhet", (req, res) => {
+    const { modell, "batteri-helse": batteriHelse, serienummer, status } = req.body;
+    console.log("Mottatt fra skjema:", { modell, batteriHelse, serienummer, status });
+    if (!modell || !batteriHelse || !serienummer || !status) {
+        return res.status(400).send("Mangler data fra skjema");
+    }
+    const sql = `INSERT INTO Enhet (modell, batteri_helse, serienummer, status) VALUES (?, ?, ?, ?)`;
+    db.run(sql, [modell, batteriHelse, serienummer, status], function (err) {
+        if (err) {
+            console.error("Databasefeil:", err.message);
+            return res.status(500).send("Databasefeil: " + err.message);
+        }
+        console.log("Enhet lagt til i databasen, id:", this.lastID);
+        res.redirect("/privat");
+    });
+});
+
+// Husk å sette opp view engine for EJS
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "view"));
 
 /** Starter serveren */
 server.listen(port, () => {

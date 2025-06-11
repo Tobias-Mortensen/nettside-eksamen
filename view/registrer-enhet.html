@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nb">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Registrer enhet</title>
+        <link rel="stylesheet" href="/style/style.css" />
+    </head>
+    <body>
+        <header>
+            <div class="logo"></div>
+            <nav>
+                <a href="/login">Logge inn</a>
+                <a href="/ny-bruker">Ny bruker</a>
+            </nav>
+        </header>
+        <main>
+            <h1>Registrer enhet</h1>
+            <form action="/registrer-enhet" method="POST">
+                <label for="modell">Modell:</label>
+                <input type="text" id="modell" name="modell" required><br>
+
+                <label for="batteri-helse">Batteri-helse:</label>
+                <input type="text" id="batteri-helse" name="batteri-helse" required><br>
+
+                <label for="serienummer">Serienummer:</label>
+                <input type="text" id="serienummer" name="serienummer" required><br>
+
+                <label for="status">Status:</label>
+                <select id="status" name="status" required>
+                    <option value="mottatt">Mottatt</option>
+                    <option value="under arbeid">Under arbeid</option>
+                    <option value="ferdig">Ferdig</option>
+                </select><br>
+
+                <button type="submit">Registrer</button>
+            </form>
+        </main>
+        <footer>&copy; 2025 Nexatech</footer>
+    </body>
+</html>
