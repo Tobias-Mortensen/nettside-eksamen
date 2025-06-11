@@ -27,3 +27,36 @@ main {
 footer {
     background-color: #4d4d4d;
 }
+
+.linker {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em 2em;
+    border-radius: 12px;
+    gap: 32px;
+    max-width: 900px;
+    margin: 2em auto 2em auto;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.10);
+}
+.linker a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1em;
+    padding: 0.5em 1.2em;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+.linker a:hover {
+    background: #fff;
+    color: #252525;
+}
+
+.enhet-list { width: 100%; margin-top: 2em; }
+.enhet-header, .enhet-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; align-items: center; gap: 0.5em; }
+.enhet-header { font-weight: bold; background: #eee; padding: 0.5em 0; }
+.enhet-row { margin-bottom: 0.5em; background: #fafafa; border-bottom: 1px solid #ccc; padding: 0.5em 0; }
+.enhet-row input[type=text], .enhet-row select { width: 95%; box-sizing: border-box; }
+button.delete { background: #c00; color: #fff; border: none; padding: 0.3em 0.7em; cursor: pointer; }
+button.save { background: #4d4d4d; color: #fff; border: none; padding: 0.3em 0.7em; cursor: pointer; }

@@ -77,14 +77,8 @@ app.get("/ny-bruker", (req, res) => {
 });
 
 /** Rute: Viser privat side (kun for autentiserte brukere) */
-app.get("/privat", (req, res) => {
-    db.all("SELECT * FROM Enhet", [], (err, rows) => {
-        if (err) {
-            console.error("Databasefeil:", err.message);
-            return res.status(500).send("Databasefeil: " + err.message);
-        }
-        res.render("privat", { enheter: rows });
-    });
+app.get("/privat", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "view", "privat.html"));
 });
 
 // Oppdater enhet
@@ -121,7 +115,7 @@ app.get("/logout", (req, res) => {
  * Rute: Håndterer innlogging
  * Sjekker epost og passord mot databasen
  */
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
     const { epost, passord } = req.body;
     if (!epost || !passord) {
         return res.redirect("/login?error=Mangler data fra skjema");
@@ -132,7 +126,7 @@ app.post("/login", (req, res) => {
             console.error("Databasefeil:", err.message);
             return res.redirect("/login?error=En uventet feil har oppstått");
         }
-        if (row && (await bcrypt.compare(passord, row.Passord))) {
+        if (row && await bcrypt.compare(passord, row.Passord)) {
             req.session.user = {
                 id: row.ID_bruker,
                 navn: row.Navn,
@@ -184,6 +178,16 @@ app.post("/registrer-enhet", (req, res) => {
         }
         console.log("Enhet lagt til i databasen, id:", this.lastID);
         res.redirect("/privat");
+    });
+});
+
+// API endpoint for all devices (enheter)
+app.get('/api/enheter', isAuthenticated, (req, res) => {
+    db.all('SELECT * FROM Enhet', [], (err, rows) => {
+        if (err) {
+            return res.status(500).json({ error: err.message });
+        }
+        res.json(rows);
     });
 });
 
