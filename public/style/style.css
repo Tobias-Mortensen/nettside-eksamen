@@ -53,6 +53,19 @@ footer {
     color: #252525;
 }
 
+
+.login{
+    display:grid;
+    justify-content: center;
+    margin-top: 70px;
+    background-color: #b6b6b6;
+    border-radius: 25px;
+    margin-left: 40%;
+    margin-right: 40%;
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
 .enhet-list { width: 100%; margin-top: 2em; }
 .enhet-header, .enhet-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; align-items: center; gap: 0.5em; }
 .enhet-header { font-weight: bold; background: #eee; padding: 0.5em 0; }

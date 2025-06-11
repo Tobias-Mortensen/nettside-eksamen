@@ -19,7 +19,7 @@ app.use(express.urlencoded({ extended: true }));
 /** Konfigurerer sesjonshåndtering */
 app.use(
     session({
-        secret: "hemmeligNøkkel",
+        secret: "ecodatahemmeligNøkkel",
         resave: false,
         saveUninitialized: true,
         cookie: { maxAge: 7 * 24 * 60 * 60 * 1000 },
@@ -132,7 +132,7 @@ app.post("/login", async (req, res) => {
                 navn: row.Navn,
                 epost: row.Epost
             };
-            res.redirect("/");
+            res.redirect("/privat");
         } else {
             res.redirect("/login?error=Ugyldig epost eller passord");
         }
