@@ -17,7 +17,7 @@ body {
 }
 
 header {
-    background-color: #4d4d4d;
+    background-color: #333446;
 }
 
 main {
@@ -25,7 +25,7 @@ main {
 }
 
 footer {
-    background-color: #4d4d4d;
+    background-color: #333446;
 }
 
 .linker {
@@ -58,7 +58,7 @@ footer {
     display:grid;
     justify-content: center;
     margin-top: 70px;
-    background-color: #b6b6b6;
+    background-color: #7f8caa83;
     border-radius: 25px;
     margin-left: 40%;
     margin-right: 40%;
@@ -66,10 +66,47 @@ footer {
     padding-bottom: 30px;
 }
 
-.enhet-list { width: 100%; margin-top: 2em; }
-.enhet-header, .enhet-row { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr 1fr; align-items: center; gap: 0.5em; }
-.enhet-header { font-weight: bold; background: #eee; padding: 0.5em 0; }
-.enhet-row { margin-bottom: 0.5em; background: #fafafa; border-bottom: 1px solid #ccc; padding: 0.5em 0; }
-.enhet-row input[type=text], .enhet-row select { width: 95%; box-sizing: border-box; }
-button.delete { background: #c00; color: #fff; border: none; padding: 0.3em 0.7em; cursor: pointer; }
-button.save { background: #4d4d4d; color: #fff; border: none; padding: 0.3em 0.7em; cursor: pointer; }
+.enhet-list { 
+    width: 100%;
+    margin-top: 2em;
+ }
+
+.enhet-header, .enhet-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    align-items: center; gap: 0.5em;
+ }
+
+.enhet-header {
+    font-weight: bold;
+    background: #eee;
+    padding: 0.5em 0;
+}
+
+.enhet-row {
+    margin-bottom: 0.5em; 
+    background: #fafafa; 
+    border-bottom: 1px solid #ccc; 
+    padding: 0.5em 0; 
+}
+
+.enhet-row input[type=text], .enhet-row select {
+    width: 95%; 
+    box-sizing: border-box; 
+}
+
+button.delete { 
+    background: #c00; 
+    color: #fff; 
+    border: none; 
+    padding: 0.3em 0.7em; 
+    cursor: pointer; 
+}
+
+button.save { 
+    background: #4d4d4d; 
+    color: #fff; 
+    border: none; 
+    padding: 0.3em 0.7em; 
+    cursor: pointer; 
+}

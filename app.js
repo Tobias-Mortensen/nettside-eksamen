@@ -6,7 +6,7 @@ const session = require("express-session");
 const bcrypt = require("bcrypt");
 
 const app = express();
-const port = 3000;
+const port = 3200;
 const server = http.createServer(app);
 
 /** Serverer statiske filer fra public-mappen */
