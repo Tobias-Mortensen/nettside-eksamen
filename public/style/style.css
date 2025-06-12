@@ -95,18 +95,91 @@ footer {
     box-sizing: border-box; 
 }
 
-button.delete { 
-    background: #c00; 
-    color: #fff; 
-    border: none; 
-    padding: 0.3em 0.7em; 
-    cursor: pointer; 
+.enhet-row input[type="text"] {
+    padding: 0.6em 1em;
+    border: 1.5px solid #bfc4d1;
+    border-radius: 8px;
+    font-size: 1em;
+    background: #f5f7fa;
+    box-shadow: 0 2px 8px rgba(127,140,170,0.08);
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
 }
 
-button.save { 
-    background: #4d4d4d; 
-    color: #fff; 
-    border: none; 
-    padding: 0.3em 0.7em; 
-    cursor: pointer; 
+.enhet-row input[type="text"]:focus {
+    border: 1.5px solid #333446;
+    box-shadow: 0 0 0 2px #7f8caa44;
+    background: #fff;
+}
+
+.enhet-row input[type="text"]::placeholder {
+    color: #bfc4d1;
+    opacity: 1;
+    font-style: italic;
+}
+
+.enhet-row select {
+    padding: 0.6em 1em;
+    border: 1.5px solid #bfc4d1;
+    border-radius: 8px;
+    font-size: 1em;
+    background: #f5f7fa;
+    box-shadow: 0 2px 8px rgba(127,140,170,0.08);
+    transition: border 0.2s, box-shadow 0.2s, background 0.2s;
+    outline: none;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
+}
+
+.enhet-row select:focus {
+    border: 1.5px solid #333446;
+    box-shadow: 0 0 0 2px #7f8caa44;
+    background: #fff;
+}
+
+.enhet-row select option {
+    background: #fff;
+    color: #333446;
+}
+
+button.delete {
+    background: #c00;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.5em 1.2em;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(220,53,69,0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+    letter-spacing: 0.5px;
+}
+
+button.delete:hover {
+    background: #ff6a6a;
+    box-shadow: 0 4px 16px rgba(220,53,69,0.18);
+    transform: none;
+}
+
+button.save {
+    background: #333446;
+    color: #fff;
+    border: none;
+    border-radius: 7px;
+    padding: 0.5em 1.2em;
+    font-size: 1em;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 8px rgba(127,140,170,0.10);
+    transition: background 0.2s, box-shadow 0.2s, transform 0.1s;
+    letter-spacing: 0.5px;
+}
+
+button.save:hover {
+    background: #7f8caa;
+    box-shadow: 0 4px 16px rgba(127,140,170,0.18);
+    transform: none;
 }

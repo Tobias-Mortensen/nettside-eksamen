@@ -13,10 +13,24 @@ function renderEnheter(enheter) {
         form.className = 'enhet-row';
         form.action = '/oppdater-enhet';
         form.method = 'POST';
+
+        // Parse battery health as percent (number)
+        let batteriValue = parseFloat(row.batteri_helse.toString().replace(/[^\d.]/g, ''));
+        let batteriColor = '';
+        if (!isNaN(batteriValue)) {
+            if (batteriValue < 30) {
+                batteriColor = 'rgba(220, 53, 69, 0.5)'; // red
+            } else if (batteriValue < 80) {
+                batteriColor = 'rgba(255, 165, 0, 0.5)'; // orange
+            } else {
+                batteriColor = 'rgba(40, 167, 69, 0.5)'; // green
+            }
+        }
+
         form.innerHTML = `
             <input type="hidden" name="id" value="${row.id}" />
             <div><input type="text" name="modell" value="${row.modell}" required /></div>
-            <div><input type="text" name="batteri_helse" value="${row.batteri_helse}" required /></div>
+            <div><input type="text" name="batteri_helse" value="${row.batteri_helse}" required style="background:${batteriColor};" /></div>
             <div><input type="text" name="serienummer" value="${row.serienummer}" required /></div>
             <div>
                 <select name="status" required>

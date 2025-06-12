@@ -19,25 +19,33 @@
         </header>
         <main>
             <h1>Registrer enhet</h1>
-            <form action="/registrer-enhet" method="POST">
-                <label for="modell">Modell:</label>
-                <input type="text" id="modell" name="modell" required><br>
-
-                <label for="batteri-helse">Batteri-helse:</label>
-                <input type="text" id="batteri-helse" name="batteri-helse" required><br>
-
-                <label for="serienummer">Serienummer:</label>
-                <input type="text" id="serienummer" name="serienummer" required><br>
-
-                <label for="status">Status:</label>
-                <select id="status" name="status" required>
-                    <option value="mottatt">Mottatt</option>
-                    <option value="under arbeid">Under arbeid</option>
-                    <option value="ferdig">Ferdig</option>
-                </select><br>
-
-                <button type="submit">Registrer</button>
-            </form>
+            <div class="enhet-list" style="max-width: 600px; margin: 0 auto;">
+                <form action="/registrer-enhet" method="POST" class="enhet-row" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr; background: #f5f7fa; box-shadow: 0 4px 24px rgba(0,0,0,0.07); border-radius: 16px; padding: 2em 1.5em; gap: 1em;">
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="modell">Modell:</label>
+                        <input type="text" id="modell" name="modell" required>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="batteri-helse">Batteri-helse:</label>
+                        <input type="text" id="batteri-helse" name="batteri-helse" required>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="serienummer">Serienummer:</label>
+                        <input type="text" id="serienummer" name="serienummer" required>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="status">Status:</label>
+                        <select id="status" name="status" required>
+                            <option value="mottatt">Mottatt</option>
+                            <option value="under arbeid">Under arbeid</option>
+                            <option value="ferdig">Ferdig</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; align-items: flex-end;">
+                        <button type="submit" class="save" style="width: 100%;">Registrer</button>
+                    </div>
+                </form>
+            </div>
         </main>
         <footer style="text-align: center; color: white;">&copy; 2025 EcoData</footer>
     </body>
