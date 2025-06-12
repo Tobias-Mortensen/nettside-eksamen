@@ -62,9 +62,6 @@ app.get("/", (req, res) => {
     res.sendFile(path.join(__dirname, "view", "index.html"));
 });
 
-app.get("/registrer", (req, res) => {
-    res.sendFile(path.join(__dirname, "view", "registrer-enhet.html"));
-});
 
 /** Rute: Viser innloggingssiden */
 app.get("/login", (req, res) => {
@@ -72,8 +69,12 @@ app.get("/login", (req, res) => {
 });
 
 /** Rute: Viser siden for å opprette ny bruker */
-app.get("/ny-bruker", (req, res) => {
+app.get("/ny-bruker", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "view", "ny-bruker.html"));
+});
+
+app.get("/registrer", isAuthenticated, (req, res) => {
+    res.sendFile(path.join(__dirname, "view", "registrer-enhet.html"));
 });
 
 /** Rute: Viser privat side (kun for autentiserte brukere) */
