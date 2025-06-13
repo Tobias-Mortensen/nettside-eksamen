@@ -45,11 +45,12 @@ const db = new sqlite3.Database("datamaskin.db", (err) => {
 
 // Opprett tabellen Enhet hvis den ikke finnes
 const createEnhetTable = `CREATE TABLE IF NOT EXISTS Enhet (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    modell TEXT NOT NULL,
-    batteri_helse TEXT NOT NULL,
-    serienummer TEXT NOT NULL,
-    status TEXT NOT NULL
+    ID INTEGER PRIMARY KEY,
+    modell TEXT,
+    serienummer TEXT,
+    status TEXT,
+    "batteri-helse" TEXT,
+    "skjerm-størrelse" TEXT
 );`;
 db.run(createEnhetTable, (err) => {
     if (err) {
@@ -69,7 +70,7 @@ app.get("/login", (req, res) => {
 });
 
 /** Rute: Viser siden for å opprette ny bruker */
-app.get("/ny-bruker", isAuthenticated, (req, res) => {
+app.get("/ny-bruker",  (req, res) => {
     res.sendFile(path.join(__dirname, "view", "ny-bruker.html"));
 });
 
@@ -84,9 +85,9 @@ app.get("/privat", isAuthenticated, (req, res) => {
 
 // Oppdater enhet
 app.post("/oppdater-enhet", (req, res) => {
-    const { id, modell, batteri_helse, serienummer, status } = req.body;
-    const sql = `UPDATE Enhet SET modell=?, batteri_helse=?, serienummer=?, status=? WHERE id=?`;
-    db.run(sql, [modell, batteri_helse, serienummer, status, id], function (err) {
+    const { id, modell, serienummer, status, "batteri-helse": batteriHelse, "skjerm-størrelse": skjermStorrelse } = req.body;
+    const sql = `UPDATE Enhet SET modell=?, serienummer=?, status=?, "batteri-helse"=?, "skjerm-størrelse"=? WHERE ID=?`;
+    db.run(sql, [modell, serienummer, status, batteriHelse, skjermStorrelse, id], function (err) {
         if (err) {
             console.error("Databasefeil:", err.message);
         }
@@ -166,13 +167,13 @@ app.post("/ny-bruker", async (req, res) => {
  * Lagrer enheten i databasen
  */
 app.post("/registrer-enhet", (req, res) => {
-    const { modell, "batteri-helse": batteriHelse, serienummer, status } = req.body;
-    console.log("Mottatt fra skjema:", { modell, batteriHelse, serienummer, status });
-    if (!modell || !batteriHelse || !serienummer || !status) {
+    const { modell, serienummer, status, "batteri-helse": batteriHelse, "skjerm-størrelse": skjermStorrelse } = req.body;
+    console.log("Mottatt fra skjema:", { modell, serienummer, status, batteriHelse, skjermStorrelse });
+    if (!modell || !batteriHelse || !serienummer || !status || !skjermStorrelse) {
         return res.status(400).send("Mangler data fra skjema");
     }
-    const sql = `INSERT INTO Enhet (modell, batteri_helse, serienummer, status) VALUES (?, ?, ?, ?)`;
-    db.run(sql, [modell, batteriHelse, serienummer, status], function (err) {
+    const sql = `INSERT INTO Enhet (modell, serienummer, status, "batteri-helse", "skjerm-størrelse") VALUES (?, ?, ?, ?, ?)`;
+    db.run(sql, [modell, serienummer, status, batteriHelse, skjermStorrelse], function (err) {
         if (err) {
             console.error("Databasefeil:", err.message);
             return res.status(500).send("Databasefeil: " + err.message);

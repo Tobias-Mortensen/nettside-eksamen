@@ -20,7 +20,7 @@
         <main>
             <h1>Registrer enhet</h1>
             <div class="enhet-list" style="max-width: 600px; margin: 0 auto;">
-                <form action="/registrer-enhet" method="POST" class="enhet-row" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr; background: #f5f7fa; box-shadow: 0 4px 24px rgba(0,0,0,0.07); border-radius: 16px; padding: 2em 1.5em; gap: 1em;">
+                <form action="/registrer-enhet" method="POST" class="enhet-row" style="grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr; background: #ffffff; border-radius: 16px; padding: 2em 1.5em; gap: 1em;">
                     <div style="display: flex; flex-direction: column;">
                         <label for="modell">Modell:</label>
                         <input type="text" id="modell" name="modell" required>
@@ -39,6 +39,14 @@
                             <option value="mottatt">Mottatt</option>
                             <option value="under arbeid">Under arbeid</option>
                             <option value="ferdig">Ferdig</option>
+                        </select>
+                    </div>
+                    <div style="display: flex; flex-direction: column;">
+                        <label for="skjerm-størrelse">Skjerm-størrelse:</label>
+                        <select id="skjerm-størrelse" name="skjerm-størrelse" required>
+                            <option value="1920x1080">1920x1080</option>
+                            <option value="1680x1050">1680x1050</option>
+                            <option value="1280x720">1280x720</option>
                         </select>
                     </div>
                     <div style="display: flex; align-items: flex-end;">
