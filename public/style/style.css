@@ -184,3 +184,19 @@ button.save:hover {
     box-shadow: 0 4px 16px rgba(127,140,170,0.18);
     transform: none;
 }
+
+/* Only for registrer-enhet.html form */
+.registrer-enhet-form {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 1.5em !important;
+    grid-template-columns: none !important;
+}
+
+.registrer-enhet-form > div {
+    width: 100%;
+}
+
+.registrer-enhet-form button.save {
+    width: 100%;
+}

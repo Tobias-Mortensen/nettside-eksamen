@@ -70,7 +70,7 @@ app.get("/login", (req, res) => {
 });
 
 /** Rute: Viser siden for å opprette ny bruker */
-app.get("/ny-bruker",  (req, res) => {
+app.get("/ny-bruker", isAuthenticated, (req, res) => {
     res.sendFile(path.join(__dirname, "view", "ny-bruker.html"));
 });
 
