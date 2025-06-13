@@ -34,6 +34,7 @@ function renderEnheter(enheter) {
             <div><input type="text" name="serienummer" value="${row.serienummer}" required /></div>
             <div>
                 <select name="status" required>
+                    <option value="ulevert" ${row.status === 'ulevert' ? 'selected' : ''}>Ulevert</option>
                     <option value="mottatt" ${row.status === 'mottatt' ? 'selected' : ''}>Mottatt</option>
                     <option value="under arbeid" ${row.status === 'under arbeid' ? 'selected' : ''}>Under arbeid</option>
                     <option value="ferdig" ${row.status === 'ferdig' ? 'selected' : ''}>Ferdig</option>
